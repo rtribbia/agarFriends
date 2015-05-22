@@ -1,0 +1,26 @@
+<html>
+
+    <title>Meal Planner</title>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function() {
+         var socket = io();
+         window.addEventListener('message', function(event) {
+           if (~event.origin.indexOf('http://agar.io')) {
+              socket.emit('newxy', event.data);
+           } else {
+              return;
+           }
+         });
+      });
+
+
+
+
+      
+
+    </script>
+    <p>HEY</p>
+  </body>
+</html>

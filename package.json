@@ -1,0 +1,16 @@
+{
+  "name": "diet_planner",
+  "version": "1.0.0",
+  "description": "Meal planning",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Robert Tribbia",
+  "license": "ISC",
+  "dependencies": {
+    "routes-router": "^4.1.2",
+    "st": "^0.5.3"
+  }
+}

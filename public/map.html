@@ -1,0 +1,93 @@
+<html>
+<head>
+	
+	    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="js/pixi.js"></script>
+</head>
+	<body>
+		<div id="map">
+		</div>
+		<script>
+			$(function() {
+				stage = new PIXI.Stage(0xFFFFFF, true);
+				var bg = new PIXI.Graphics();
+				var o = 60;
+				bg.beginFill(0xFFFFFF);
+				bg.drawRect(0,0,744,744);
+				bg.lineStyle(2, 0x000000)
+				bg.drawRect(40,40,579,579);
+				stage.addChild(bg);
+				users = [];
+
+				renderer = PIXI.autoDetectRenderer(744, 744);
+				document.getElementById('map').appendChild(renderer.view);
+
+
+				// var gfx = new PIXI.Graphics();
+				// gfx.beginFill(0x00FF00);
+				// gfx.lineStyle(2, 0x000000);
+				// gfx.drawCircle(50+o,50+o, 25);
+				// stage.addChild(gfx);
+				updateScr();
+
+
+				var socket = io();
+				socket.on('coords', function(arr) {
+					arr.forEach(function(x) {
+					//	console.log(x.n + ': (' + x.x + ', ' + x.y + ')');
+						updateCoords(x);
+					});
+					updateScr();
+
+				});
+
+				function updateCoords(obj) {
+					if (userExists(obj.n) === false) {
+						var u = createUser(obj.n);
+						users.push(u);
+						stage.addChild(u.ui);
+						u.ui.position.x = ~~(obj.x / 20) + o;
+						u.ui.position.y = ~~(obj.y / 20) + o;
+						
+					} else {
+						users[userExists(obj.n)].ui.position.x = ~~(obj.x / 20) + o;
+						users[userExists(obj.n)].ui.position.y = ~~(obj.y / 20) + o;
+					}
+				}
+				function updateScr() {
+					renderer.render(stage);
+				}
+				function userExists(name) {
+					var found = false;
+					if (users.length == 0) 
+						return found;
+
+					users.forEach(function (u,i) {
+						if (u.n == name)
+							found = i;
+					});
+
+					return found;
+				}
+				function createUser(name) {
+					console.log('creating user: ' + name);
+					var uo = { n: name }
+					var ui = new PIXI.Container();
+					var gfx = new PIXI.Graphics();
+					gfx.beginFill(0x00FF00);
+					gfx.lineStyle(2, 0x000000);
+					gfx.drawCircle(-10,-10, 10);
+					ui.addChild(gfx);
+					var text = new PIXI.Text(name, {font:"14px Arial", fill:"white", stroke:"black", strokeThickness: 2, align: 'center'});
+					text.position.x = -40;
+					text.position.y = -40;
+					ui.addChild(text);
+					uo.ui = ui;
+					return uo;
+				}
+			});
+		</script>
+	</body>
+</html>
+
