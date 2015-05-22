@@ -1,16 +1,28 @@
 {
-  "name": "diet_planner",
+  "name": "AgarFriends",
   "version": "1.0.0",
-  "description": "Meal planning",
+  "description": "Allow users Agar players to see entire play field and eachother's locations",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "author": "Robert Tribbia",
-  "license": "ISC",
+  "license": "]",
   "dependencies": {
-    "routes-router": "^4.1.2",
-    "st": "^0.5.3"
-  }
+    "express": "^4.12.4",
+    "socket.io": "^1.3.5"
+  },
+  "engines": {
+    "node": "0.12.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rtribbia/agarFriends.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rtribbia/agarFriends/issues"
+  },
+  "homepage": "https://github.com/rtribbia/agarFriends"
 }
